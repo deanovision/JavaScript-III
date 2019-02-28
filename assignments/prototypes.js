@@ -147,5 +147,95 @@ Humanoid.prototype.greet = function(){
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Give the Hero and Villains different methods that could be used to remove health points from objects 
+  // * which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+// HERE I AM ADDING HUMANOID ATTRIBUTES TO THE VILLIAN AND HERO CLASS
+
+  function Villian(attrs){
+    Humanoid.call(this, attrs);
+  }
+
+  function Hero(attrs){
+    Humanoid.call(this, attrs);
+  }
+
+  /*HERE I AM CREATING A PROTOTYPE METHOD NAMED ATTACK FOR THE VILLIAN THAT TAKES IN THE VICTIM
+  AS AN ARGUMENT AS WELL AS THE ATTACK POWER THE METHOD WILL EVALUATE THE HEALTH POINTS OF THE 
+  VICTIM AND DETERMINE IF THE ATTACK WAS SUCCESFULL
+  */
+
+  Villian.prototype.attack = function(victim, attackPower){
+    this.victim = victim;
+    this.attackPower = attackPower;
+    for (let prop in victim){
+      if (victim.healthPoints < this.attackPower || victim.healthPoints === this.attackPower){
+        return `Your attack was successful ${victim.destroy()}`;
+      }
+      else {
+        return `Your attack was not strong enough ${victim.name} still has ${victim.healthPoints - this.attackPower} HP left`;
+      }
+    }
+  } 
+  
+// Hero.prototype.superSaiyan = function(){
+//   this.healthPoints = 100;
+//   this.powerLevel = null;
+//   return this.powerLevel = "IT'S OVER 9000";
+// }
+
+Hero.prototype.superSaiyan = function(){
+  this.healthPoints = 100;
+  this.powerLevel = null;
+  return this.powerLevel = "It's over 9000"
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+
+  const frieza = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: 'Frieza',
+    team: 'Alien',
+    weapons: [
+      'Energy Blast',
+      'Laser Beam',
+    ],
+    language: 'Pure Evil',
+  });
+
+  const goku = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 30,
+    name: 'Kakkarot',
+    team: 'Saiyan',
+    weapons: [
+      'These Hands',
+      'Kamehameha Wave',
+    ],
+    language: 'English',
+  });
+
+  
+
+goku.superSaiyan();
+
+  console.log(goku.healthPoints)
+
+  console.log(goku.powerLevel)
+
+  console.log(frieza.attack(goku,30))
+      
+    
